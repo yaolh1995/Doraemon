@@ -3,5 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "author": "yaolh <347046045@qq.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "cssnano": "^4.1.10"
+  },
+  "repository": "git@github.com:yaolh1995/Doraemon.git"
 }
