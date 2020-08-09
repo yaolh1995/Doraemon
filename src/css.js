@@ -1,13 +1,4 @@
 const String =`
-* {
-    box-sizing: border-box;
-}
-
-*::before,
-*::after {
-    box-sizing: border-box;
-}
-
 body {
     overflow: hidden;
 }

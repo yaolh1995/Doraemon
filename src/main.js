@@ -1,44 +1,85 @@
 import String from './css.js';
-let write = window.write;
-let style = document.querySelector("style")
-let string = "";
-let a = 0;
 
-function myWrite() {
-    if (String[a] === "\n") {
-        string += "<br>"
-    } else if (String[a] === " ") {
-        string += "&nbsp"
-    } else {
-        string += String[a]
-    }
-    a++;
-    write.innerHTML = string;
-    style.innerHTML = String.substring(0, a);
-    write.scrollTo(0, 9999)
-    if (a > String.length - 1) {
-        clearInterval(window.id)
-    }
-};
+const player = {
+    id: undefined,
+    time: 30,
+    a: 0,
+    string: "",
+    ui: {
+        write: window.write,
+        style: document.querySelector("style")
+    },
+    //执行的函数
+    myWrite: () => {
+        if (String[player.a] === "\n") {
+            player.string += "<br>"
+        } else if (String[player.a] === " ") {
+            player.string += "&nbsp"
+        } else {
+            player.string += String[player.a]
+        }
+        player.a++;
+        player.ui.write.innerHTML = player.string;
+        player.ui.style.innerHTML = String.substring(0, player.a);
+        /* scrollHeight或 write.scrollTo(0, 9999) */
+        player.ui.write.scrollTop = player.ui.write.scrollHeight
+        if (player.a > String.length - 1) {
+            clearInterval(player.id)
+        }
+    },
+    //hashTable： id：调用的函数
+    events: {
+        '#bnstop': 'pause',
+        '#bnplay': 'play',
+        '#bnslow': 'slow',
+        '#bnfast': 'fast',
+        '#bnormal': 'normal'
+    },
 
-window.id = setInterval(myWrite,20);
-bn.addEventListener('click', (e) => {
-    const t = e.target;
-    console.log(t.className)
-    if (t.className === 'bnstop') {
-        clearInterval(window.id)
+    bindEvents: () => {
+        for (let key in player.events) {
+            //防御性编程
+            if (player.events.hasOwnProperty(key)) {
+                const value = player.events[key]
+                console.log('----')
+                bn.querySelector(key).onclick = player[value]
+                //player[value]
+            }
+        }
+    },
+
+    //初始化，play+绑定监听；
+    init: () => {
+        player.time = 30
+        player.play()
+        player.bindEvents()
+
+    },
+
+    pause: () => {
+        clearInterval(player.id)
+        console.log('已执行暂停')
+    },
+
+    play: () => {
+        player.pause()
+        player.id = setInterval(player.myWrite, player.time)
+        console.log(player.myWrite)
+        console.log('已执行')
+    },
+
+    slow: () => {
+        player.time = 50
+        player.play()
+    },
+    fast: () => {
+        player.time = 0
+        player.play()
+    },
+    normal: () => {
+        player.time = 20
+        player.play()
     }
-    if (t.className === 'bnplay') {
-        clearInterval(window.id);
-        window.id = setInterval(myWrite, 20)
-    }
-    if (t.className === 'bnslow') {
-        clearInterval(window.id);
-        window.id = setInterval(myWrite, 50)
-    }
-    if (t.className === 'bnfast') {
-        clearInterval(window.id);
-        window.id = setInterval(myWrite, 0)
-    }
-})
-/* stop{clearInterval(Id)} */
+}
+
+player.init()
