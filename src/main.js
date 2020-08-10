@@ -58,14 +58,11 @@ const player = {
 
     pause: () => {
         clearInterval(player.id)
-        console.log('已执行暂停')
     },
 
     play: () => {
         player.pause()
         player.id = setInterval(player.myWrite, player.time)
-        console.log(player.myWrite)
-        console.log('已执行')
     },
 
     slow: () => {

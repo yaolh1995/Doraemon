@@ -130,7 +130,7 @@ exports.default = _default;
 },{}],"epB2":[function(require,module,exports) {
 "use strict";
 
-var _css = _interopRequireDefault(require("./css.6d009712.js"));
+var _css = _interopRequireDefault(require("./css.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -190,13 +190,10 @@ var player = {
   },
   pause: function pause() {
     clearInterval(player.id);
-    console.log('已执行暂停');
   },
   play: function play() {
     player.pause();
     player.id = setInterval(player.myWrite, player.time);
-    console.log(player.myWrite);
-    console.log('已执行');
   },
   slow: function slow() {
     player.time = 50;
@@ -212,5 +209,5 @@ var player = {
   }
 };
 player.init();
-},{"./css.6d009712.js":"K4Xi"}]},{},["epB2"], null)
-//# sourceMappingURL=main.70db26e9.js.map
+},{"./css.js":"K4Xi"}]},{},["epB2"], null)
+//# sourceMappingURL=main.23249643.js.map
